@@ -7,7 +7,7 @@ namespace SearchRepositoriesGitHUB.Services
 {
    public interface IItemsService
     {
-        Item Get(int id);
+        Item Get(long id);
 
         void Salvar(Item item);
 

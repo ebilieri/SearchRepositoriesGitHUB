@@ -8,6 +8,8 @@ namespace SearchRepositoriesGitHUB.Models
         [JsonProperty("id")]
         public long Id { get; set; }
 
+        public long IdGitHub { get; set; }
+
         [JsonProperty("node_id")]
         public string NodeId { get; set; }
 
@@ -20,11 +22,11 @@ namespace SearchRepositoriesGitHUB.Models
         [JsonProperty("private")]
         public bool Private { get; set; }
 
-        [JsonProperty("owner")]
-        public Owner Owner { get; set; }
+        //[JsonProperty("owner")]
+        //public virtual Owner Owner { get; set; }
 
         [JsonProperty("html_url")]
-        public Uri HtmlUrl { get; set; }
+        public string HtmlUrl { get; set; }
 
         [JsonProperty("description")]
         public string Description { get; set; }
@@ -33,10 +35,10 @@ namespace SearchRepositoriesGitHUB.Models
         public bool Fork { get; set; }
 
         [JsonProperty("url")]
-        public Uri Url { get; set; }
+        public string Url { get; set; }
 
         [JsonProperty("forks_url")]
-        public Uri ForksUrl { get; set; }
+        public string ForksUrl { get; set; }
 
         [JsonProperty("keys_url")]
         public string KeysUrl { get; set; }
@@ -45,16 +47,16 @@ namespace SearchRepositoriesGitHUB.Models
         public string CollaboratorsUrl { get; set; }
 
         [JsonProperty("teams_url")]
-        public Uri TeamsUrl { get; set; }
+        public string TeamsUrl { get; set; }
 
         [JsonProperty("hooks_url")]
-        public Uri HooksUrl { get; set; }
+        public string HooksUrl { get; set; }
 
         [JsonProperty("issue_events_url")]
         public string IssueEventsUrl { get; set; }
 
         [JsonProperty("events_url")]
-        public Uri EventsUrl { get; set; }
+        public string EventsUrl { get; set; }
 
         [JsonProperty("assignees_url")]
         public string AssigneesUrl { get; set; }
@@ -63,7 +65,7 @@ namespace SearchRepositoriesGitHUB.Models
         public string BranchesUrl { get; set; }
 
         [JsonProperty("tags_url")]
-        public Uri TagsUrl { get; set; }
+        public string TagsUrl { get; set; }
 
         [JsonProperty("blobs_url")]
         public string BlobsUrl { get; set; }
@@ -81,19 +83,19 @@ namespace SearchRepositoriesGitHUB.Models
         public string StatusesUrl { get; set; }
 
         [JsonProperty("languages_url")]
-        public Uri LanguagesUrl { get; set; }
+        public string LanguagesUrl { get; set; }
 
         [JsonProperty("stargazers_url")]
-        public Uri StargazersUrl { get; set; }
+        public string StargazersUrl { get; set; }
 
         [JsonProperty("contributors_url")]
-        public Uri ContributorsUrl { get; set; }
+        public string ContributorsUrl { get; set; }
 
         [JsonProperty("subscribers_url")]
-        public Uri SubscribersUrl { get; set; }
+        public string SubscribersUrl { get; set; }
 
         [JsonProperty("subscription_url")]
-        public Uri SubscriptionUrl { get; set; }
+        public string SubscriptionUrl { get; set; }
 
         [JsonProperty("commits_url")]
         public string CommitsUrl { get; set; }
@@ -114,13 +116,13 @@ namespace SearchRepositoriesGitHUB.Models
         public string CompareUrl { get; set; }
 
         [JsonProperty("merges_url")]
-        public Uri MergesUrl { get; set; }
+        public string MergesUrl { get; set; }
 
         [JsonProperty("archive_url")]
         public string ArchiveUrl { get; set; }
 
         [JsonProperty("downloads_url")]
-        public Uri DownloadsUrl { get; set; }
+        public string DownloadsUrl { get; set; }
 
         [JsonProperty("issues_url")]
         public string IssuesUrl { get; set; }
@@ -141,7 +143,7 @@ namespace SearchRepositoriesGitHUB.Models
         public string ReleasesUrl { get; set; }
 
         [JsonProperty("deployments_url")]
-        public Uri DeploymentsUrl { get; set; }
+        public string DeploymentsUrl { get; set; }
 
         [JsonProperty("created_at")]
         public DateTimeOffset CreatedAt { get; set; }
@@ -159,10 +161,10 @@ namespace SearchRepositoriesGitHUB.Models
         public string SshUrl { get; set; }
 
         [JsonProperty("clone_url")]
-        public Uri CloneUrl { get; set; }
+        public string CloneUrl { get; set; }
 
         [JsonProperty("svn_url")]
-        public Uri SvnUrl { get; set; }
+        public string SvnUrl { get; set; }
 
         [JsonProperty("homepage")]
         public string Homepage { get; set; }
@@ -177,7 +179,7 @@ namespace SearchRepositoriesGitHUB.Models
         public long WatchersCount { get; set; }
 
         [JsonProperty("language")]
-        public Language Language { get; set; }
+        public string Language { get; set; }
 
         [JsonProperty("has_issues")]
         public bool HasIssues { get; set; }
@@ -198,7 +200,7 @@ namespace SearchRepositoriesGitHUB.Models
         public long ForksCount { get; set; }
 
         [JsonProperty("mirror_url")]
-        public object MirrorUrl { get; set; }
+        public string MirrorUrl { get; set; }
 
         [JsonProperty("archived")]
         public bool Archived { get; set; }
@@ -209,8 +211,8 @@ namespace SearchRepositoriesGitHUB.Models
         [JsonProperty("open_issues_count")]
         public long OpenIssuesCount { get; set; }
 
-        [JsonProperty("license")]
-        public License License { get; set; }
+        //[JsonProperty("license")]
+       // public License License { get; set; }
 
         [JsonProperty("forks")]
         public long Forks { get; set; }
@@ -222,7 +224,7 @@ namespace SearchRepositoriesGitHUB.Models
         public long Watchers { get; set; }
 
         [JsonProperty("default_branch")]
-        public DefaultBranch DefaultBranch { get; set; }
+        public string DefaultBranch { get; set; }
 
         [JsonProperty("score")]
         public double Score { get; set; }

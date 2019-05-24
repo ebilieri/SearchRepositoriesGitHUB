@@ -14,7 +14,7 @@ namespace SearchRepositoriesGitHUB.Services
         }
 
 
-        public Item Get(int id)
+        public Item Get(long id)
         {
             return _itemsRepository.Get(id);
         }
@@ -26,7 +26,10 @@ namespace SearchRepositoriesGitHUB.Services
 
         public void Salvar(Item item)
         {
-            _itemsRepository.Salvar(item);
+            var itemExistente = Get(item.Id);
+
+            if (itemExistente == null)
+                _itemsRepository.Salvar(item);
         }
     }
 }

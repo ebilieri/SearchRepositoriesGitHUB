@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 using SearchRepositoriesGitHUB.Models;
 
 namespace SearchRepositoriesGitHUB.Repositories
@@ -15,9 +16,9 @@ namespace SearchRepositoriesGitHUB.Repositories
             _searchContext = searchRepositoriesGitHUBDBContext;
         }
 
-        public Item Get(int id)
+        public Item Get(long id)
         {
-            return _searchContext.Items.Find(id);
+            return _searchContext.Items.Where(s => s.IdGitHub == id).FirstOrDefault();
         }
 
         public IList<Item> Listar()
@@ -27,8 +28,13 @@ namespace SearchRepositoriesGitHUB.Repositories
 
         public void Salvar(Item item)
         {
+            item.IdGitHub = item.Id;
+            item.Id = 0;
+
             _searchContext.Items.Add(item);
             _searchContext.SaveChanges();
+           // _searchContext.Database.ExecuteSqlCommand("SET IDENTITY_INSERT Owners ON");
+
         }
     }
 }
