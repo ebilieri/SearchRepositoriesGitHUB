@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SearchRepositoriesGitHUB.Models\SearchRepositoriesGitHUB.Models.csproj" />
+    <ProjectReference Include="..\SearchRepositoriesGitHUB.Repositories\SearchRepositoriesGitHUB.Repositories.csproj" />
+  </ItemGroup>
+
+</Project>
