@@ -1,7 +1,7 @@
 ﻿using SearchRepositoriesGitHUB.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace SearchRepositoriesGitHUB.Repositories
 {
@@ -10,7 +10,9 @@ namespace SearchRepositoriesGitHUB.Repositories
         Item Get(long id);
 
         void Salvar(Item item);
+       
+        Task<List<Item>> GetPaginatedResult(string filtro, int currentPage, int pageSize = 10);
 
-        IList<Item> Listar();
+        Task<int> GetCount(string filtro);
     }
 }

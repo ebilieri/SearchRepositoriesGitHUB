@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using ReflectionIT.Mvc.Paging;
 using SearchRepositoriesGitHUB.Models;
 using SearchRepositoriesGitHUB.Services;
+using SearchRepositoriesGitHUB.WebApp.Models;
 using SearchRepositoriesGitHUB.WebApp.ServiceApi;
 using System;
 using System.Collections.Generic;
@@ -65,7 +67,10 @@ namespace SearchRepositoriesGitHUB.WebApp.Controllers
                             _itemsService.Salvar(item);
                         }
 
-                        return RedirectToAction("Repositorios");
+                        if (search.Items.Count > 0)
+                            return RedirectToAction("Repositorios", new { filtro = texto });
+                        else
+                            ModelState.AddModelError(string.Empty, "Nenhum repositório encontrado");
                     }
                 }
                 catch (Exception ex)
@@ -79,20 +84,15 @@ namespace SearchRepositoriesGitHUB.WebApp.Controllers
         }
 
 
-        public IActionResult Repositorios(string descricao)
+        public async Task<IActionResult> Repositorios(int currentPage = 1, string filtro = null)
         {
-            IList<Item> listItens = new List<Item>();
+            SearchModel model = new SearchModel(_itemsService);
+            model.CurrentPage = currentPage;
+            model.Filtro = filtro;
 
-            if (string.IsNullOrWhiteSpace(descricao))
-            {
-                listItens = _itemsService.Listar();                
-            }
-            else
-            {
-                listItens = _itemsService.Listar().Where(s => s.Description.ToLower().Contains(descricao.ToLower())).ToList();
-            }
+            await model.OnGetAsync(filtro);
 
-            return View(listItens);
+            return View(model);
         }
     }
 }

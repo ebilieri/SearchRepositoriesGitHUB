@@ -1,9 +1,8 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using SearchRepositoriesGitHUB.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
-using SearchRepositoriesGitHUB.Models;
+using System.Threading.Tasks;
 
 namespace SearchRepositoriesGitHUB.Repositories
 {
@@ -21,21 +20,42 @@ namespace SearchRepositoriesGitHUB.Repositories
             return _searchContext.Items.Where(s => s.IdGitHub == id).FirstOrDefault();
         }
 
-        public IList<Item> Listar()
+        public async Task<int> GetCount(string filtro)
         {
-            return _searchContext.Items.OrderBy(s => s.Name).ToList();
+            var data = await List(filtro);
+
+            return data.Count;
         }
 
+        public async Task<List<Item>> GetPaginatedResult(string filtro, int currentPage, int pageSize = 10)
+        {
+            var data = await List(filtro);
+
+            return data.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+        }
+
+               
         public void Salvar(Item item)
         {
-            item.IdGitHub = item.Id;
-            item.Id = 0;
-
-            item.Owner.IdGitHub = item.Owner.Id;
-            item.Owner.Id = 0;
-
             _searchContext.Items.Add(item);
-            _searchContext.SaveChanges();           
+            _searchContext.SaveChanges();
+        }
+
+        private async Task<IList<Item>> List(string filtro)
+        {
+            if (string.IsNullOrWhiteSpace(filtro))
+            {
+                return await _searchContext.Items.AsNoTracking().OrderBy(s => s.Name).ToListAsync();
+            }
+            else
+            {
+                filtro = string.Format("%{0}%", filtro);
+
+                return await (from s in _searchContext.Items
+                              where EF.Functions.Like(s.Description, filtro)
+                              || EF.Functions.Like(s.Name, filtro)
+                              select s).ToListAsync();
+            }
         }
     }
 }

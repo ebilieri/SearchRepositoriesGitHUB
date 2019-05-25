@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SearchRepositoriesGitHUB.Models.Item>
+﻿@model SearchRepositoriesGitHUB.WebApp.Models.SearchModel
 
 @{
     ViewData["Title"] = "Repositorios";
@@ -14,7 +14,7 @@
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="row">
                 <div class="col-lg-3">
-                    @Html.Editor("descricao", new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.Editor("filtro", new { htmlAttributes = new { @class = "form-control" } })
                 </div>
                 <div class="col-lg-2">
                     <input type="submit" value="Pesquisar" class="btn btn-success" />
@@ -49,7 +49,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
+                @foreach (var item in Model.Data)
                 {
                     <tr>
                         <td>
@@ -68,5 +68,39 @@
                 }
             </tbody>
         </table>
+
+    </div>
+</div>
+@*<div>
+        <ul class="pagination">
+            @for (var i = 1; i <= Model.TotalPages; i++)
+            {
+                <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                    <a  asp-route-currentpage="@i" class="page-link">@i</a>
+                </li>
+            }
+        </ul>
+    </div>*@
+
+<div class="row">
+    <div class="col-lg-4">
+        <ul class="pagination">
+            <li class="page-item @(!Model.ShowFirst? "disabled":"")">
+                @Html.ActionLink("Primeira", "Repositorios", "Search", new { currentpage = 1, filtro = Model.Filtro })
+            </li>
+            <li class="page-item @(!Model.ShowPrevious? "disabled":"")">
+                @Html.ActionLink("Anterior", "Repositorios", "Search", new { currentpage = Model.CurrentPage - 1, filtro = Model.Filtro })
+            </li>
+            <li class="page-item  @(!Model.ShowNext? "disabled":"")">
+                @Html.ActionLink("Próxima", "Repositorios", "Search", new { currentpage = Model.CurrentPage + 1, filtro = Model.Filtro })
+            </li>
+            <li class="page-item  @(!Model.ShowLast? "disabled":"")">
+                @Html.ActionLink("Última", "Repositorios", "Search", new { currentpage = Model.TotalPages, filtro = Model.Filtro })
+            </li>
+        </ul>
+    </div>
+    <div class="col-lg-4 align-bottom">
+        <br />
+        <h4>Página @Model.CurrentPage de @Model.TotalPages</h4>
     </div>
 </div>
