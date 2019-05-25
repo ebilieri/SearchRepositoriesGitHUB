@@ -23,7 +23,7 @@ namespace SearchRepositoriesGitHUB.Repositories
 
         public IList<Item> Listar()
         {
-            return _searchContext.Items.ToList();
+            return _searchContext.Items.OrderBy(s => s.Name).ToList();
         }
 
         public void Salvar(Item item)
@@ -31,10 +31,11 @@ namespace SearchRepositoriesGitHUB.Repositories
             item.IdGitHub = item.Id;
             item.Id = 0;
 
-            _searchContext.Items.Add(item);
-            _searchContext.SaveChanges();
-           // _searchContext.Database.ExecuteSqlCommand("SET IDENTITY_INSERT Owners ON");
+            item.Owner.IdGitHub = item.Owner.Id;
+            item.Owner.Id = 0;
 
+            _searchContext.Items.Add(item);
+            _searchContext.SaveChanges();           
         }
     }
 }

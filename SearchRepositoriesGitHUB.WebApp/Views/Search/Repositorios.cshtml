@@ -4,58 +4,69 @@
     ViewData["Title"] = "Repositorios";
 }
 
-<h2>Repositorios</h2>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.IdGitHub)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HtmlUrl)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Language)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Score)
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
+<div class="panel panel-success">
+    <div class="panel-heading panel-head">
+        Pesquisar repositórios
+    </div>
+    <div class="panel-body">
+        @using (Html.BeginForm("Repositorios", "Search", FormMethod.Get))
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IdGitHub)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HtmlUrl)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.Language)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Score)
-                </td>
-            </tr>
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="row">
+                <div class="col-lg-3">
+                    @Html.Editor("descricao", new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                <div class="col-lg-2">
+                    <input type="submit" value="Pesquisar" class="btn btn-success" />
+                </div>
+            </div>
         }
-    </tbody>
-</table>
+    </div>
+</div>
+
+
+<div class="panel panel-primary">
+    <div class="panel-heading panel-head">
+        <h2>Repositórios</h2>
+    </div>
+
+    <div class="panel-body">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayName("Nome")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Descrição")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Linguagem")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Repositório")
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Language)
+                        </td>
+                        <td>
+                            <a href="@item.HtmlUrl" target="_blank">@item.HtmlUrl</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

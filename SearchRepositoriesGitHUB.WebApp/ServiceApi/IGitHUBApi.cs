@@ -8,6 +8,6 @@ namespace SearchRepositoriesGitHUB.WebApp.ServiceApi
 {
     public interface IGitHUBApi
     {
-        Task<Search> GetRepositories(string uriEndPoint);
+        Task<Search> GetRepositories(string uriEndPoint, string token);
     }
 }

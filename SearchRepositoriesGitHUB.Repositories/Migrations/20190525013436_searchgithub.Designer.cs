@@ -10,8 +10,8 @@ using SearchRepositoriesGitHUB.Repositories;
 namespace SearchRepositoriesGitHUB.Repositories.Migrations
 {
     [DbContext(typeof(SearchRepositoriesGitHUBDBContext))]
-    [Migration("20190524175634_githubapi")]
-    partial class githubapi
+    [Migration("20190525013436_searchgithub")]
+    partial class searchgithub
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -131,6 +131,8 @@ namespace SearchRepositoriesGitHUB.Repositories.Migrations
 
                     b.Property<long>("OpenIssuesCount");
 
+                    b.Property<long?>("OwnerId");
+
                     b.Property<bool>("Private");
 
                     b.Property<string>("PullsUrl");
@@ -173,7 +175,63 @@ namespace SearchRepositoriesGitHUB.Repositories.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("OwnerId");
+
                     b.ToTable("Items");
+                });
+
+            modelBuilder.Entity("SearchRepositoriesGitHUB.Models.Owner", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AvatarUrl");
+
+                    b.Property<string>("EventsUrl");
+
+                    b.Property<string>("FollowersUrl");
+
+                    b.Property<string>("FollowingUrl");
+
+                    b.Property<string>("GistsUrl");
+
+                    b.Property<string>("GravatarId");
+
+                    b.Property<string>("HtmlUrl");
+
+                    b.Property<long>("IdGitHub");
+
+                    b.Property<string>("Login");
+
+                    b.Property<string>("NodeId");
+
+                    b.Property<string>("OrganizationsUrl");
+
+                    b.Property<string>("ReceivedEventsUrl");
+
+                    b.Property<string>("ReposUrl");
+
+                    b.Property<bool>("SiteAdmin");
+
+                    b.Property<string>("StarredUrl");
+
+                    b.Property<string>("SubscriptionsUrl");
+
+                    b.Property<string>("Type");
+
+                    b.Property<string>("Url");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Owner");
+                });
+
+            modelBuilder.Entity("SearchRepositoriesGitHUB.Models.Item", b =>
+                {
+                    b.HasOne("SearchRepositoriesGitHUB.Models.Owner", "Owner")
+                        .WithMany("ItemsRepositorios")
+                        .HasForeignKey("OwnerId");
                 });
 #pragma warning restore 612, 618
         }

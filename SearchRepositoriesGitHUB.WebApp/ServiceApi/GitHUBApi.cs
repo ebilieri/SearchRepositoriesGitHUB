@@ -9,14 +9,12 @@ namespace SearchRepositoriesGitHUB.WebApp.ServiceApi
 {
     public class GitHUBApi : IGitHUBApi
     {
-        public async Task<Search> GetRepositories(string uriEndPoint)
+        public async Task<Search> GetRepositories(string uriEndPoint, string token)
         {            
             Search search = null;
             using (var client = new HttpClient())
-            {
-                var token = "b092dfb58ba906ddc8608b8ed3f6cd7e0466dae0";
-
-                client.DefaultRequestHeaders.UserAgent.Add(new System.Net.Http.Headers.ProductInfoHeaderValue("AppName", "1.0"));
+            {                
+                client.DefaultRequestHeaders.UserAgent.Add(new System.Net.Http.Headers.ProductInfoHeaderValue("API_SEARCH_REPO", "1.0"));
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
                 client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Token", token);
 

@@ -28,19 +28,20 @@ namespace SearchRepositoriesGitHUB.WebApp.Controllers
         }
 
         public IActionResult Index()
-        {                       
+        {
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> Index(string texto, bool c, bool java, bool javaScript, bool python, bool go)
-        {                        
+        {
             string message;
-            
+
             if (!string.IsNullOrWhiteSpace(texto))
             {
                 try
                 {
+                    var token = _configuration.GetSection("Token").Value;
                     var uriEndpoint = string.Format(_configuration.GetSection("ApiConnections").GetSection("DefautUrlSearch").Value, texto);
 
                     if (c)
@@ -53,12 +54,12 @@ namespace SearchRepositoriesGitHUB.WebApp.Controllers
                         uriEndpoint = uriEndpoint + "+language:python";
                     if (go)
                         uriEndpoint = uriEndpoint + "+language:go";
-                    
+
                     // execuar endpoint api github
-                    var search = await _gitHUBApi.GetRepositories(uriEndpoint);
+                    var search = await _gitHUBApi.GetRepositories(uriEndpoint, token);
 
                     if (search != null)
-                    {                       
+                    {
                         foreach (var item in search.Items)
                         {
                             _itemsService.Salvar(item);
@@ -78,9 +79,18 @@ namespace SearchRepositoriesGitHUB.WebApp.Controllers
         }
 
 
-        public IActionResult Repositorios()
+        public IActionResult Repositorios(string descricao)
         {
-            var listItens = _itemsService.Listar();
+            IList<Item> listItens = new List<Item>();
+
+            if (string.IsNullOrWhiteSpace(descricao))
+            {
+                listItens = _itemsService.Listar();                
+            }
+            else
+            {
+                listItens = _itemsService.Listar().Where(s => s.Description.ToLower().Contains(descricao.ToLower())).ToList();
+            }
 
             return View(listItens);
         }

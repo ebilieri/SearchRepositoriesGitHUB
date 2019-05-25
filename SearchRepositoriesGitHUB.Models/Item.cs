@@ -22,8 +22,8 @@ namespace SearchRepositoriesGitHUB.Models
         [JsonProperty("private")]
         public bool Private { get; set; }
 
-        //[JsonProperty("owner")]
-        //public virtual Owner Owner { get; set; }
+        [JsonProperty("owner")]
+        public Owner Owner { get; set; }
 
         [JsonProperty("html_url")]
         public string HtmlUrl { get; set; }
