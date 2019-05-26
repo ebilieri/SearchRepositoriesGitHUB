@@ -9,7 +9,7 @@ namespace SearchRepositoriesGitHUB.Repositories.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Items",
+                name: "Repositorios",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false),
@@ -89,34 +89,12 @@ namespace SearchRepositoriesGitHUB.Repositories.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Items", x => x.IdGitHub);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Repositorios",
-                columns: table => new
-                {
-                    IdGitHub = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    HtmlUrl = table.Column<string>(nullable: true),
-                    Id = table.Column<long>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    FullName = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    Homepage = table.Column<string>(nullable: true),
-                    Language = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
                     table.PrimaryKey("PK_Repositorios", x => x.IdGitHub);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Items");
-
             migrationBuilder.DropTable(
                 name: "Repositorios");
         }

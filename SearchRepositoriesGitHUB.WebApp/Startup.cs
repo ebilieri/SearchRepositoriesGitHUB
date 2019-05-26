@@ -48,21 +48,19 @@ namespace SearchRepositoriesGitHUB.WebApp
             });
 
             // String Connection
-            //var sqlConnection = Configuration.GetConnectionString("AzureConnection");
+            var sqlConnection = Configuration.GetConnectionString("AzureConnection");
 
-            var sqlConnection = Configuration.GetConnectionString("DefaultConnection");
+            //var sqlConnection = Configuration.GetConnectionString("DefaultConnection");
 
             // Context
             services.AddDbContext<SearchRepositoriesGitHUBDBContext>(options =>
                 options.UseSqlServer(sqlConnection));
 
             // Repositoties
-            services.AddScoped<IItemsRepository, ItemsRepository>();
-            services.AddScoped<IOctokitRepository, OctokitRepository>();
+            services.AddScoped<IGitHubRepository, GitHubRepository>();            
             
             //Services
-            services.AddScoped<IItemsService, ItemsService>();
-            services.AddScoped<IOctokitService, OctokitService>();
+            services.AddScoped<IGitHubService, GitHubService>();            
 
             services.AddScoped<IGitHUBApi, GitHUBApi>();
             services.AddSingleton<IConfiguration>(Configuration);

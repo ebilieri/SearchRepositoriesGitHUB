@@ -7,7 +7,7 @@
         Pesquisar Repositórios do GitHUB
     </div>
     <div class="panel-body">
-        @using (Html.BeginForm("OctoKit", "Search", FormMethod.Post))
+        @using (Html.BeginForm("HttpIndex", "Search", FormMethod.Post))
         {
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="row">
@@ -19,11 +19,11 @@
             <div class="row">
                 <div class="col-lg-4">
                     <br />
-                    @Html.RadioButton("Linguagem", "C") <span> C#&nbsp;&nbsp; </span>
-                    @Html.RadioButton("Linguagem","Java") <span> Java&nbsp;&nbsp; </span>
-                    @Html.RadioButton("Linguagem","JavaScript") <span> JavaScript&nbsp;&nbsp; </span>
-                    @Html.RadioButton("Linguagem","Python") <span> Python&nbsp;&nbsp; </span>
-                    @Html.RadioButton("Linguagem","Go") <span> Go </span>
+                    @Html.CheckBox("C") <span> C#&nbsp;&nbsp; </span>
+                    @Html.CheckBox("Java") <span> Java&nbsp;&nbsp; </span>
+                    @Html.CheckBox("JavaScript") <span> JavaScript&nbsp;&nbsp; </span>
+                    @Html.CheckBox("Python") <span> Python&nbsp;&nbsp; </span>
+                    @Html.CheckBox("Go") <span> Go </span>
                 </div>
                 <div class="col-lg-2"></div>
             </div>

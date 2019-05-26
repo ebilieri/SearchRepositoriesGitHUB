@@ -24,10 +24,10 @@
     <Content Update="config.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="Views\Search\OctoKit.cshtml">
+    <Content Update="Views\Search\HttpIndex.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Views\Search\RepositoriosOctoKit.cshtml">
+    <Content Update="Views\Search\OctoKitIndex.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
   </ItemGroup>

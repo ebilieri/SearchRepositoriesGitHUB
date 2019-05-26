@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 
 namespace SearchRepositoriesGitHUB.Repositories
 {
-    public interface IItemsRepository
+    public interface IGitHubRepository
     {
-        Item Get(long id);
+        Repositorio Get(long id);
 
-        void Salvar(Item item);
+        void Salvar(Repositorio item);
        
-        Task<List<Item>> GetPaginatedResult(string filtro, int currentPage, int pageSize = 10);
+        Task<List<Repositorio>> GetPaginatedResult(string filtro, int currentPage, int pageSize = 10);
 
         Task<int> GetCount(string filtro);
     }

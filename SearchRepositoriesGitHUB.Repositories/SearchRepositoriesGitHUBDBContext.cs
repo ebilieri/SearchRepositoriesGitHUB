@@ -4,8 +4,7 @@ using SearchRepositoriesGitHUB.Models;
 namespace SearchRepositoriesGitHUB.Repositories
 {
     public class SearchRepositoriesGitHUBDBContext : DbContext
-    {
-        public DbSet<Item> Items { get; set; }
+    {        
         public DbSet<Repositorio> Repositorios { get; set; }
 
         public SearchRepositoriesGitHUBDBContext(DbContextOptions<SearchRepositoriesGitHUBDBContext> options) : base(options)
@@ -14,12 +13,8 @@ namespace SearchRepositoriesGitHUB.Repositories
         }
 
         
-
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            //modelBuilder.Entity<Repository>();
-            modelBuilder.Entity<Item>().HasKey(p => p.IdGitHub);
+        {            
             modelBuilder.Entity<Repositorio>().HasKey(p => p.IdGitHub);
            
             base.OnModelCreating(modelBuilder);

@@ -19,7 +19,7 @@ namespace SearchRepositoriesGitHUB.Repositories.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("SearchRepositoriesGitHUB.Models.Item", b =>
+            modelBuilder.Entity("SearchRepositoriesGitHUB.Models.Repositorio", b =>
                 {
                     b.Property<long>("IdGitHub")
                         .ValueGeneratedOnAdd()
@@ -168,31 +168,6 @@ namespace SearchRepositoriesGitHUB.Repositories.Migrations
                     b.Property<long>("Watchers");
 
                     b.Property<long>("WatchersCount");
-
-                    b.HasKey("IdGitHub");
-
-                    b.ToTable("Items");
-                });
-
-            modelBuilder.Entity("SearchRepositoriesGitHUB.Models.Repositorio", b =>
-                {
-                    b.Property<long>("IdGitHub")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Description");
-
-                    b.Property<string>("FullName");
-
-                    b.Property<string>("Homepage");
-
-                    b.Property<string>("HtmlUrl");
-
-                    b.Property<long>("Id");
-
-                    b.Property<string>("Language");
-
-                    b.Property<string>("Name");
 
                     b.HasKey("IdGitHub");
 

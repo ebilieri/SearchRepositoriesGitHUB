@@ -12,16 +12,13 @@ namespace SearchRepositoriesGitHUB.WebApp.Controllers
 {
     public class SearchController : Controller
     {
-        private readonly IItemsService _itemsService;
-        private readonly IOctokitService _octokitService;
+        private readonly IGitHubService _gitHubService;        
         private readonly IConfiguration _configuration;
         private readonly IGitHUBApi _gitHUBApi;
 
-        public SearchController(IItemsService itemsService, IOctokitService octokitService,
-            IGitHUBApi gitHUBApi, IConfiguration confuguration)
+        public SearchController(IGitHubService gitHubService, IGitHUBApi gitHUBApi, IConfiguration confuguration)
         {
-            _itemsService = itemsService;
-            _octokitService = octokitService;
+            _gitHubService = gitHubService;            
             _gitHUBApi = gitHUBApi;
             _configuration = confuguration;
         }
@@ -31,8 +28,14 @@ namespace SearchRepositoriesGitHUB.WebApp.Controllers
             return View();
         }
 
+        #region GitHub API Http
+        public IActionResult HttpIndex()
+        {
+            return View();
+        }
+
         [HttpPost]
-        public async Task<IActionResult> Index(string texto, bool c, bool java, bool javaScript, bool python, bool go)
+        public async Task<IActionResult> HttpIndex(string texto, bool c, bool java, bool javaScript, bool python, bool go)
         {
             string message;
 
@@ -59,12 +62,12 @@ namespace SearchRepositoriesGitHUB.WebApp.Controllers
 
                     if (search != null)
                     {
-                        foreach (var item in search.Items)
+                        foreach (var item in search.Repositorios)
                         {
-                            _itemsService.Salvar(item);
+                            _gitHubService.Salvar(item);
                         }
 
-                        if (search.Items.Count > 0)
+                        if (search.Repositorios.Count > 0)
                             return RedirectToAction("Repositorios", new { filtro = texto });
                         else
                             ModelState.AddModelError(string.Empty, "Nenhum repositório encontrado");
@@ -80,13 +83,18 @@ namespace SearchRepositoriesGitHUB.WebApp.Controllers
             return View();
         }
 
-        public IActionResult OctoKit()
+        #endregion
+
+
+
+        #region GitHUB OctoKit DLL
+        public IActionResult OctoKitIndex()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> OctoKit(string texto, string linguagem)
+        public async Task<IActionResult> OctoKitIndex(string texto, string linguagem)
         {
             string message;
 
@@ -97,18 +105,11 @@ namespace SearchRepositoriesGitHUB.WebApp.Controllers
                     var usuario = _configuration.GetSection("User").GetSection("Usuario").Value;
                     var senha = _configuration.GetSection("User").GetSection("Senha").Value;
 
-
-
-
-
-
-
                     var githubClient = new GitHubClient(new ProductHeaderValue("SearchRepositoriesGitHUB"));
-
                     var basicAuth = new Credentials(usuario, senha);
                     githubClient.Credentials = basicAuth;
 
-
+                    // Pesquisar repositgorios
                     var request = new SearchRepositoriesRequest(texto);
 
                     // linguagem
@@ -161,11 +162,11 @@ namespace SearchRepositoriesGitHUB.WebApp.Controllers
                             repositorio.HtmlUrl = item.HtmlUrl;
                             repositorio.Language = item.Language;
 
-                            _octokitService.Salvar(repositorio);
+                            _gitHubService.Salvar(repositorio);
                         }
 
                         if (result.Items.Count > 0)
-                            return RedirectToAction("RepositoriosOctoKit", new { filtro = texto });
+                            return RedirectToAction("Repositorios", new { filtro = texto });
                         else
                             ModelState.AddModelError(string.Empty, "Nenhum repositório encontrado");
                     }
@@ -180,27 +181,18 @@ namespace SearchRepositoriesGitHUB.WebApp.Controllers
             return View();
         }
 
+        #endregion
+
 
         public async Task<IActionResult> Repositorios(int currentPage = 1, string filtro = null)
         {
-            SearchModel model = new SearchModel(_itemsService, _octokitService);
+            SearchModel model = new SearchModel(_gitHubService);
             model.CurrentPage = currentPage;
             model.Filtro = filtro;
 
             await model.OnGetAsync(filtro);
 
             return View(model);
-        }
-
-        public async Task<IActionResult> RepositoriosOctoKit(int currentPage = 1, string filtro = null)
-        {
-            SearchModel model = new SearchModel(_itemsService, _octokitService);
-            model.CurrentPage = currentPage;
-            model.Filtro = filtro;
-
-            await model.OnGetAsyncOctoKit(filtro);
-
-            return View(model);
-        }
+        }        
     }
 }

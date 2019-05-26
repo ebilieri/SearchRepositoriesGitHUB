@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace SearchRepositoriesGitHUB.Repositories
 {
-    public class ItemsRepository : IItemsRepository
+    public class GitHubRepository : IGitHubRepository
     {
         private readonly SearchRepositoriesGitHUBDBContext _searchContext;
 
-        public ItemsRepository(SearchRepositoriesGitHUBDBContext searchRepositoriesGitHUBDBContext)
+        public GitHubRepository(SearchRepositoriesGitHUBDBContext searchRepositoriesGitHUBDBContext)
         {
             _searchContext = searchRepositoriesGitHUBDBContext;
         }
 
-        public Item Get(long id)
+        public Repositorio Get(long id)
         {
-            return _searchContext.Items.Where(s => s.Id == id).FirstOrDefault();
+            return _searchContext.Repositorios.Where(s => s.Id == id).FirstOrDefault();
         }
 
         public async Task<int> GetCount(string filtro)
@@ -27,31 +27,31 @@ namespace SearchRepositoriesGitHUB.Repositories
             return data.Count;
         }
 
-        public async Task<List<Item>> GetPaginatedResult(string filtro, int currentPage, int pageSize = 10)
+        public async Task<List<Repositorio>> GetPaginatedResult(string filtro, int currentPage, int pageSize = 10)
         {
             var data = await List(filtro);
 
             return data.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
         }
 
-               
-        public void Salvar(Item item)
+
+        public void Salvar(Repositorio repositorio)
         {
-            _searchContext.Items.Add(item);
+            _searchContext.Repositorios.Add(repositorio);
             _searchContext.SaveChanges();
         }
 
-        private async Task<IList<Item>> List(string filtro)
+        private async Task<IList<Repositorio>> List(string filtro)
         {
             if (string.IsNullOrWhiteSpace(filtro))
             {
-                return await _searchContext.Items.AsNoTracking().OrderBy(s => s.Name).ToListAsync();
+                return await _searchContext.Repositorios.AsNoTracking().OrderBy(s => s.Name).ToListAsync();
             }
             else
             {
                 filtro = string.Format("%{0}%", filtro);
 
-                return await (from s in _searchContext.Items
+                return await (from s in _searchContext.Repositorios
                               where EF.Functions.Like(s.Description, filtro)
                               || EF.Functions.Like(s.Name, filtro)
                               select s).ToListAsync();

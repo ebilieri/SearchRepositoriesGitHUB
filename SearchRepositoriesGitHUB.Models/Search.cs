@@ -12,6 +12,6 @@ namespace SearchRepositoriesGitHUB.Models
         public bool IncompleteResults { get; set; }
 
         [JsonProperty("items")]
-        public List<Item> Items { get; set; }
+        public List<Repositorio> Repositorios { get; set; }
     }
 }
