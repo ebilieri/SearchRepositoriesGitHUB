@@ -12,9 +12,12 @@ namespace SearchRepositoriesGitHUB.WebApp.Models
     public class SearchModel : PageModel
     {
         private readonly IItemsService _itemsService;
-        public SearchModel(IItemsService itemsService)
+        private readonly IOctokitService _octokitService;
+
+        public SearchModel(IItemsService itemsService, IOctokitService octokitService)
         {
             _itemsService = itemsService;
+            _octokitService = octokitService;
         }
 
         [BindProperty(SupportsGet = true)]
@@ -30,6 +33,7 @@ namespace SearchRepositoriesGitHUB.WebApp.Models
         public int TotalPages => (int)Math.Ceiling(decimal.Divide(Count, PageSize));
 
         public List<Item> Data { get; set; }
+        public List<Repositorio> DataOctoKit { get; set; }
 
         public string Filtro { get; set; }
 
@@ -37,6 +41,12 @@ namespace SearchRepositoriesGitHUB.WebApp.Models
         {
             Data = await _itemsService.GetPaginatedResult(filtro, CurrentPage, PageSize);
             Count = await _itemsService.GetCount(filtro);
+        }
+
+        public async Task OnGetAsyncOctoKit(string filtro)
+        {
+            DataOctoKit = await _octokitService.GetPaginatedResult(filtro, CurrentPage, PageSize);
+            Count = await _octokitService.GetCount(filtro);
         }
     }
 }

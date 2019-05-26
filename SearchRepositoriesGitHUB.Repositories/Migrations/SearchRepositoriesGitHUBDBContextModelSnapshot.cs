@@ -21,7 +21,7 @@ namespace SearchRepositoriesGitHUB.Repositories.Migrations
 
             modelBuilder.Entity("SearchRepositoriesGitHUB.Models.Item", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<long>("IdGitHub")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -97,7 +97,7 @@ namespace SearchRepositoriesGitHUB.Repositories.Migrations
 
                     b.Property<string>("HtmlUrl");
 
-                    b.Property<long>("IdGitHub");
+                    b.Property<long>("Id");
 
                     b.Property<string>("IssueCommentUrl");
 
@@ -128,8 +128,6 @@ namespace SearchRepositoriesGitHUB.Repositories.Migrations
                     b.Property<long>("OpenIssues");
 
                     b.Property<long>("OpenIssuesCount");
-
-                    b.Property<long?>("OwnerId");
 
                     b.Property<bool>("Private");
 
@@ -171,65 +169,34 @@ namespace SearchRepositoriesGitHUB.Repositories.Migrations
 
                     b.Property<long>("WatchersCount");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("OwnerId");
+                    b.HasKey("IdGitHub");
 
                     b.ToTable("Items");
                 });
 
-            modelBuilder.Entity("SearchRepositoriesGitHUB.Models.Owner", b =>
+            modelBuilder.Entity("SearchRepositoriesGitHUB.Models.Repositorio", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<long>("IdGitHub")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("AvatarUrl");
+                    b.Property<string>("Description");
 
-                    b.Property<string>("EventsUrl");
+                    b.Property<string>("FullName");
 
-                    b.Property<string>("FollowersUrl");
-
-                    b.Property<string>("FollowingUrl");
-
-                    b.Property<string>("GistsUrl");
-
-                    b.Property<string>("GravatarId");
+                    b.Property<string>("Homepage");
 
                     b.Property<string>("HtmlUrl");
 
-                    b.Property<long>("IdGitHub");
+                    b.Property<long>("Id");
 
-                    b.Property<string>("Login");
+                    b.Property<string>("Language");
 
-                    b.Property<string>("NodeId");
+                    b.Property<string>("Name");
 
-                    b.Property<string>("OrganizationsUrl");
+                    b.HasKey("IdGitHub");
 
-                    b.Property<string>("ReceivedEventsUrl");
-
-                    b.Property<string>("ReposUrl");
-
-                    b.Property<bool>("SiteAdmin");
-
-                    b.Property<string>("StarredUrl");
-
-                    b.Property<string>("SubscriptionsUrl");
-
-                    b.Property<string>("Type");
-
-                    b.Property<string>("Url");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Owner");
-                });
-
-            modelBuilder.Entity("SearchRepositoriesGitHUB.Models.Item", b =>
-                {
-                    b.HasOne("SearchRepositoriesGitHUB.Models.Owner", "Owner")
-                        .WithMany("ItemsRepositorios")
-                        .HasForeignKey("OwnerId");
+                    b.ToTable("Repositorios");
                 });
 #pragma warning restore 612, 618
         }

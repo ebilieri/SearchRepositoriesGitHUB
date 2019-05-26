@@ -9,47 +9,16 @@ namespace SearchRepositoriesGitHUB.Repositories.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Owner",
-                columns: table => new
-                {
-                    Login = table.Column<string>(nullable: true),
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    IdGitHub = table.Column<long>(nullable: false),
-                    NodeId = table.Column<string>(nullable: true),
-                    AvatarUrl = table.Column<string>(nullable: true),
-                    GravatarId = table.Column<string>(nullable: true),
-                    Url = table.Column<string>(nullable: true),
-                    HtmlUrl = table.Column<string>(nullable: true),
-                    FollowersUrl = table.Column<string>(nullable: true),
-                    FollowingUrl = table.Column<string>(nullable: true),
-                    GistsUrl = table.Column<string>(nullable: true),
-                    StarredUrl = table.Column<string>(nullable: true),
-                    SubscriptionsUrl = table.Column<string>(nullable: true),
-                    OrganizationsUrl = table.Column<string>(nullable: true),
-                    ReposUrl = table.Column<string>(nullable: true),
-                    EventsUrl = table.Column<string>(nullable: true),
-                    ReceivedEventsUrl = table.Column<string>(nullable: true),
-                    Type = table.Column<string>(nullable: true),
-                    SiteAdmin = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Owner", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Items",
                 columns: table => new
                 {
-                    Id = table.Column<long>(nullable: false)
+                    Id = table.Column<long>(nullable: false),
+                    IdGitHub = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    IdGitHub = table.Column<long>(nullable: false),
                     NodeId = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     FullName = table.Column<string>(nullable: true),
                     Private = table.Column<bool>(nullable: false),
-                    OwnerId = table.Column<long>(nullable: true),
                     HtmlUrl = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     Fork = table.Column<bool>(nullable: false),
@@ -120,19 +89,27 @@ namespace SearchRepositoriesGitHUB.Repositories.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Items", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Items_Owner_OwnerId",
-                        column: x => x.OwnerId,
-                        principalTable: "Owner",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                    table.PrimaryKey("PK_Items", x => x.IdGitHub);
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Items_OwnerId",
-                table: "Items",
-                column: "OwnerId");
+            migrationBuilder.CreateTable(
+                name: "Repositorios",
+                columns: table => new
+                {
+                    IdGitHub = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    HtmlUrl = table.Column<string>(nullable: true),
+                    Id = table.Column<long>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    FullName = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    Homepage = table.Column<string>(nullable: true),
+                    Language = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Repositorios", x => x.IdGitHub);
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -141,7 +118,7 @@ namespace SearchRepositoriesGitHUB.Repositories.Migrations
                 name: "Items");
 
             migrationBuilder.DropTable(
-                name: "Owner");
+                name: "Repositorios");
         }
     }
 }

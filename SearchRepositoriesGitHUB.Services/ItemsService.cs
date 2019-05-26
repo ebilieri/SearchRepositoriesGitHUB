@@ -30,7 +30,6 @@ namespace SearchRepositoriesGitHUB.Services
         {
             return await _itemsRepository.GetPaginatedResult(filtro, currentPage, pageSize);
         }
-
         
         public void Salvar(Item item)
         {
@@ -39,13 +38,8 @@ namespace SearchRepositoriesGitHUB.Services
             if (itemExistente == null)
             {
                 if (!string.IsNullOrWhiteSpace(item.Description))
-                    item.Description = "*";
-                item.IdGitHub = item.Id;
-                item.Id = 0;
-
-                item.Owner.IdGitHub = item.Owner.Id;
-                item.Owner.Id = 0;
-
+                    item.Description = item.Name;
+                                
                 _itemsRepository.Salvar(item);
             }
         }
