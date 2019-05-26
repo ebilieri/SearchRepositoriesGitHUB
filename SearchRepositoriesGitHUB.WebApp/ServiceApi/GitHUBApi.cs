@@ -9,14 +9,17 @@ namespace SearchRepositoriesGitHUB.WebApp.ServiceApi
 {
     public class GitHUBApi : IGitHUBApi
     {
-        public async Task<Search> GetRepositories(string uriEndPoint, string token)
-        {            
+        public async Task<Search> GetRepositories(string uriEndPoint, string clientId)
+        {
             Search search = null;
             using (var client = new HttpClient())
-            {                
-                client.DefaultRequestHeaders.UserAgent.Add(new System.Net.Http.Headers.ProductInfoHeaderValue("API_SEARCH_REPO", "1.0"));
-                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Token", token);
+            {
+                client.DefaultRequestHeaders.UserAgent.Add(new System.Net.Http.Headers.ProductInfoHeaderValue("SearchGitHub", "1.0"));
+                //client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+                client.DefaultRequestHeaders.Add("client_id", clientId);
+
+                // client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Token", token);
 
                 using (var response = await client.GetAsync(uriEndPoint))
                 {
@@ -25,7 +28,7 @@ namespace SearchRepositoriesGitHUB.WebApp.ServiceApi
                         search = await response.Content.ReadAsAsync<Search>();
                     }
                     else
-                    {                        
+                    {
                         throw new Exception(response.ToString());
                     }
                 }

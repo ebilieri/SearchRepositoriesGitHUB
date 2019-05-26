@@ -43,7 +43,8 @@ namespace SearchRepositoriesGitHUB.WebApp.Controllers
             {
                 try
                 {
-                    var token = _configuration.GetSection("Token").Value;
+                    //var token = _configuration.GetSection("Token").Value;
+                    var clientId = _configuration.GetSection("ClientID").Value;
                     var uriEndpoint = string.Format(_configuration.GetSection("ApiConnections").GetSection("DefautUrlSearch").Value, texto);
 
                     if (c)
@@ -58,7 +59,7 @@ namespace SearchRepositoriesGitHUB.WebApp.Controllers
                         uriEndpoint = uriEndpoint + "+language:go";
 
                     // execuar endpoint api github
-                    var search = await _gitHUBApi.GetRepositories(uriEndpoint, token);
+                    var search = await _gitHUBApi.GetRepositories(uriEndpoint, clientId);
 
                     if (search != null)
                     {
