@@ -48,9 +48,9 @@ namespace SearchRepositoriesGitHUB.WebApp
             });
 
             // String Connection
-            var sqlConnection = Configuration.GetConnectionString("AzureConnection");
+            //var sqlConnection = Configuration.GetConnectionString("AzureConnection");
 
-            //var sqlConnection = Configuration.GetConnectionString("DefaultConnection");
+            var sqlConnection = Configuration.GetConnectionString("DefaultConnection");
 
             // Context
             services.AddDbContext<SearchRepositoriesGitHUBDBContext>(options =>

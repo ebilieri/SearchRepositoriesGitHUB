@@ -17,7 +17,7 @@ namespace SearchRepositoriesGitHUB.Tests
         public SearchGithubTest()
         {
             var optionsBuilder = new DbContextOptionsBuilder<SearchRepositoriesGitHUBDBContext>();
-            optionsBuilder.UseSqlServer("Server=ebilieri.database.windows.net;Database=GitHUBDB;User Id=ebilieri; Password=tgn@859XYZ123456789;");
+            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=GitHUBSearchDB;Trusted_Connection=True;MultipleActiveResultSets=true");
 
             _searchContext = new SearchRepositoriesGitHUBDBContext(optionsBuilder.Options);
             _gitHubRepository = new GitHubRepository(_searchContext);
