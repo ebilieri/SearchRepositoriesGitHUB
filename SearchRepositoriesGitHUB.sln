@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28917.181
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SearchRepositoriesGitHUB.Models", "SearchRepositoriesGitHUB.Models\SearchRepositoriesGitHUB.Models.csproj", "{28CEB0A0-5F32-4926-A5D4-A7F675FBC475}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SearchRepositoriesGitHUB.Models", "SearchRepositoriesGitHUB.Models\SearchRepositoriesGitHUB.Models.csproj", "{28CEB0A0-5F32-4926-A5D4-A7F675FBC475}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SearchRepositoriesGitHUB.Services", "SearchRepositoriesGitHUB.Services\SearchRepositoriesGitHUB.Services.csproj", "{9EC5874B-7171-45AE-82EC-DCD63D8D7C93}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SearchRepositoriesGitHUB.Services", "SearchRepositoriesGitHUB.Services\SearchRepositoriesGitHUB.Services.csproj", "{9EC5874B-7171-45AE-82EC-DCD63D8D7C93}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SearchRepositoriesGitHUB.Repositories", "SearchRepositoriesGitHUB.Repositories\SearchRepositoriesGitHUB.Repositories.csproj", "{87E8722D-3DD6-434D-BD0D-4232DE13C2BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SearchRepositoriesGitHUB.Repositories", "SearchRepositoriesGitHUB.Repositories\SearchRepositoriesGitHUB.Repositories.csproj", "{87E8722D-3DD6-434D-BD0D-4232DE13C2BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SearchRepositoriesGitHUB.WebApp", "SearchRepositoriesGitHUB.WebApp\SearchRepositoriesGitHUB.WebApp.csproj", "{076573B6-945D-40D3-AB09-8BF3784C270C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SearchRepositoriesGitHUB.WebApp", "SearchRepositoriesGitHUB.WebApp\SearchRepositoriesGitHUB.WebApp.csproj", "{076573B6-945D-40D3-AB09-8BF3784C270C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SearchRepositoriesGitHUB.Tests", "SearchRepositoriesGitHUB.Tests\SearchRepositoriesGitHUB.Tests.csproj", "{F3226607-C3AC-4175-92CF-FFA7E25886E3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{076573B6-945D-40D3-AB09-8BF3784C270C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{076573B6-945D-40D3-AB09-8BF3784C270C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{076573B6-945D-40D3-AB09-8BF3784C270C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3226607-C3AC-4175-92CF-FFA7E25886E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3226607-C3AC-4175-92CF-FFA7E25886E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3226607-C3AC-4175-92CF-FFA7E25886E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3226607-C3AC-4175-92CF-FFA7E25886E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
