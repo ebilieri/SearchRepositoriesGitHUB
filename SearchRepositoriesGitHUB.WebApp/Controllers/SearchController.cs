@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using SearchRepositoriesGitHUB.Services;
 using SearchRepositoriesGitHUB.WebApp.Models;
 using SearchRepositoriesGitHUB.WebApp.ServiceApi;

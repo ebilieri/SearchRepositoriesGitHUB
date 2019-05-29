@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SearchRepositoriesGitHUB.Repositories;
 using SearchRepositoriesGitHUB.Services;
 using SearchRepositoriesGitHUB.WebApp.ServiceApi;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace SearchRepositoriesGitHUB.WebApp
 {
@@ -64,14 +65,40 @@ namespace SearchRepositoriesGitHUB.WebApp
 
             services.AddScoped<IGitHUBApi, GitHUBApi>();
             services.AddSingleton<IConfiguration>(Configuration);
-
-
+           
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            // Sweggar configuration
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1",
+                    new Info
+                    {
+                        Title = "QuickBuy Angular APP",
+                        Version = "v1",
+                        Description = "Aplicação Angular com ASP.Net Core",
+                        Contact = new Contact
+                        {
+                            Name = "Emerson Bilieri Claudelino",
+                            Url = "https://github.com/ebilieri"
+                        }
+                    });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "ASP.NET Core V1");
+            });
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
